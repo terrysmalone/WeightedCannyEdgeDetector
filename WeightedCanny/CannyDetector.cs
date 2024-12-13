@@ -42,6 +42,17 @@ public sealed class CannyDetector
 
     private int _stackCounter;
 
+    public CannyDetector(byte[] rawByteData, int imageWidth, int imageHeight)
+    {
+        _imageWidth = imageWidth;
+        _imageHeight = imageHeight;
+        _imageSize = _imageWidth * _imageHeight;
+
+        _pixelData = new int[_imageSize];
+        ConvertDataFromBytes(rawByteData);
+        InitialiseArrays();
+    }
+
     public CannyDetector(int[] rawIntData, int imageWidth, int imageHeight)
     {
         _imageWidth = imageWidth;
@@ -62,6 +73,20 @@ public sealed class CannyDetector
             int r = (currentPixel & 0xff0000) >> 16;
             int g = (currentPixel & 0xff00) >> 8;
             int b = currentPixel & 0xff;
+
+            _pixelData[i] = CalculateBrightness(r, g, b);
+        }
+    }
+
+    private void ConvertDataFromBytes(byte[] rawByteData)
+    {
+        int offset = 0;
+
+        for (int i = 0; i < _imageSize; i++)
+        {
+            int b = rawByteData[offset++] & 0xff;
+            int g = rawByteData[offset++] & 0xff;
+            int r = rawByteData[offset++] & 0xff;
 
             _pixelData[i] = CalculateBrightness(r, g, b);
         }
