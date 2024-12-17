@@ -10,4 +10,21 @@ Note: The algorithm has been ripped from a project carried out in 2013. It's by 
 
 ![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a.bmp "Test image 1a")
 
- 
+```
+ string filePath = "./TestImages/1a.bmp";
+
+CannyDetector canny = new CannyDetector(filePath);
+
+canny.KernelWidth = 20;
+canny.KernelSigma = 5;
+
+canny.WrapVertically = true;
+
+canny.DetectEdges();
+
+Bitmap edgeBitmap = canny.GetImage();
+edgeBitmap.Save("1a-result1.png");
+```
+
+![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a-result1.bmp "1a-result1.png")
+
