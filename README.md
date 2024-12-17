@@ -4,7 +4,7 @@ An implementation of a Canny Edge Detector modified for use in glacier borehole 
 
 The modification largely involves being able to wrap the edges horizontally since a borehole image shows a full 360 degree image, and being able to specify horizontal and vertical weightings independently. The different weightings are largely because the sinusoidal edges in borehole images of ice are largely stronger vertically than horizontally. 
 
-Note: The algroithm has been ripped from a project carried out in 2013. It's by no means well written or efficient. Time permitting, the plan is to make it both at some point.
+Note: The algorithm has been ripped from a project carried out in 2013. It's by no means well written or efficient. Time permitting, the plan is to make it both at some point.
 
 ## Usage
 
