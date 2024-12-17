@@ -37,7 +37,20 @@ public sealed class CannyDetector
 
     private int _stackCounter;
 
-    private ImageConverter _imageConverter;
+    private CannyImageConverter _imageConverter;
+
+    public CannyDetector(string filePath)
+    {
+        _imageConverter = new CannyImageConverter();
+
+        (byte[] byteData, _imageWidth, _imageHeight) = _imageConverter.GetByteDataFromImageFile(filePath);
+
+        _imageSize = _imageWidth * _imageHeight;
+
+        _pixelData = new int[_imageSize];
+        ConvertDataFromBytes(byteData);
+        InitialiseArrays();
+    }
 
     public CannyDetector(byte[] rawByteData, int imageWidth, int imageHeight)
     {
@@ -49,7 +62,7 @@ public sealed class CannyDetector
         ConvertDataFromBytes(rawByteData);
         InitialiseArrays();
 
-        _imageConverter = new ImageConverter(_imageWidth, _imageHeight);
+        _imageConverter = new CannyImageConverter();
     }
 
     public CannyDetector(int[] rawIntData, int imageWidth, int imageHeight)
@@ -62,7 +75,7 @@ public sealed class CannyDetector
         ConvertDataFromRGB(rawIntData);
         InitialiseArrays();
 
-        _imageConverter = new ImageConverter(_imageWidth, _imageHeight);
+        _imageConverter = new CannyImageConverter();
     }
 
     private void ConvertDataFromRGB(int[] rawIntData)
@@ -498,7 +511,7 @@ public sealed class CannyDetector
 
     public Bitmap GetImage()
     {
-        Bitmap edgesImage = _imageConverter.GetEdgesImage(_edgeData);
+        Bitmap edgesImage = _imageConverter.GetEdgesImage(_edgeData, _imageWidth, _imageHeight);
 
         return edgesImage;
     }

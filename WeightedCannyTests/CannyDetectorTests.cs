@@ -1,9 +1,6 @@
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Reflection;
 using WeightedCanny;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WeightedCannyTests;
 
@@ -63,14 +60,11 @@ public class CannyDetectorTests
     {
         string filePath = GetFullFilePath("1a");
 
-        Image img = Image.FromFile(filePath);
-        byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
-
-        CannyDetector canny = new CannyDetector(bytes, img.Width, img.Height);
+        CannyDetector canny = new CannyDetector(filePath);
         canny.KernelWidth = 20;
         canny.KernelSigma = 5;
 
-        canny.HorizontalWeight = 0.0f;
+        canny.WrapVertically = true;
 
         canny.DetectEdges();
 
