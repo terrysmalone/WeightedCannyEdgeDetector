@@ -8,6 +8,8 @@ Note: The algorithm has been ripped from a project carried out in 2013. It's by 
 
 ## Usage
 
+<img src="[http://....jpg](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a.bmp)" width="200" />
+
 ![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a.bmp "Test image 1a")
 
 ### No weighting 
