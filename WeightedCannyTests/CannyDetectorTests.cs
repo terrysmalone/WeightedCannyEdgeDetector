@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Reflection;
 using WeightedCanny;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WeightedCannyTests;
 
@@ -39,9 +40,12 @@ public class CannyDetectorTests
             }
         }
 
-        CannyDetector edgeDetector = new CannyDetector(imageData, imageWidth, imageHeight);
+        CannyDetector canny = new CannyDetector(imageData, imageWidth, imageHeight);
+        canny.WrapHorizontally = false;
 
-        bool[] edgeData = edgeDetector.DetectEdges();
+        canny.DetectEdges();
+
+        bool[] edgeData = canny.GetEdgeData();
 
         Assert.IsTrue(edgeData[35 + (17 * imageWidth)] == true, "(35,17) should be true");
         Assert.IsTrue(edgeData[36 + (17 * imageWidth)] == false, "(36,17) should be false");
@@ -49,6 +53,9 @@ public class CannyDetectorTests
         Assert.IsTrue(edgeData[62 + (81 * imageWidth)] == true, "(62,81) should be true");
         Assert.IsTrue(edgeData[64 + (81 * imageWidth)] == true, "(64,81) should be true");
         Assert.IsTrue(edgeData[74 + (105 * imageWidth)] == false, "(74,105) should be false");
+
+        Bitmap edgeBitmap = canny.GetImage();
+        edgeBitmap.Save("edgeImage.png");
     }
 
     [Test]
@@ -60,7 +67,17 @@ public class CannyDetectorTests
         byte[] bytes = (byte[])(new ImageConverter()).ConvertTo(img, typeof(byte[]));
 
         CannyDetector canny = new CannyDetector(bytes, img.Width, img.Height);
-        bool[] edges = canny.DetectEdges();
+        canny.KernelWidth = 20;
+        canny.KernelSigma = 5;
+
+        canny.HorizontalWeight = 0.0f;
+
+        canny.DetectEdges();
+
+        bool[] edgeData = canny.GetEdgeData();
+
+        Bitmap edgeBitmap = canny.GetImage();
+        edgeBitmap.Save("1a-edgeImage.png");
     }
 
     //[Test]

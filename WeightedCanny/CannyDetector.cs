@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace WeightedCanny;
+
 public sealed class CannyDetector
 {
     public int KernelWidth { get; set; } = 3;
@@ -42,6 +37,8 @@ public sealed class CannyDetector
 
     private int _stackCounter;
 
+    private ImageConverter _imageConverter;
+
     public CannyDetector(byte[] rawByteData, int imageWidth, int imageHeight)
     {
         _imageWidth = imageWidth;
@@ -51,6 +48,8 @@ public sealed class CannyDetector
         _pixelData = new int[_imageSize];
         ConvertDataFromBytes(rawByteData);
         InitialiseArrays();
+
+        _imageConverter = new ImageConverter(_imageWidth, _imageHeight);
     }
 
     public CannyDetector(int[] rawIntData, int imageWidth, int imageHeight)
@@ -62,6 +61,8 @@ public sealed class CannyDetector
         _pixelData = new int[_imageSize];
         ConvertDataFromRGB(rawIntData);
         InitialiseArrays();
+
+        _imageConverter = new ImageConverter(_imageWidth, _imageHeight);
     }
 
     private void ConvertDataFromRGB(int[] rawIntData)
@@ -99,7 +100,7 @@ public sealed class CannyDetector
         return brightness;
     }
 
-    public bool[] DetectEdges()
+    public void DetectEdges()
     {
         InitialiseArrays();
 
@@ -113,8 +114,6 @@ public sealed class CannyDetector
         int high = (int)Math.Floor(HighThreshold * MagnitudeScale);
         PerformHysteresis(low, high);
         BinariseEdges();
-
-        return _edgeData;
     }
 
     private void InitialiseArrays()
@@ -262,12 +261,10 @@ public sealed class CannyDetector
         {
             if (x - i < 0)
             {
-                //if (wrapHorizontally)
                 sum += _gaussianDiffKernel[i] * (_yConv[index - i + _imageWidth] - _yConv[index + i]);
             }
             else if (x + i >= _imageWidth)
             {
-                //if (wrapHorizontally)
                 sum += _gaussianDiffKernel[i] * (_yConv[index - i] - _yConv[index + i - _imageWidth]);
             }
             else
@@ -492,6 +489,18 @@ public sealed class CannyDetector
             else
                 _edgeData[i] = false;
         }
+    }
+
+    public bool[] GetEdgeData()
+    {
+        return _edgeData;
+    }
+
+    public Bitmap GetImage()
+    {
+        Bitmap edgesImage = _imageConverter.GetEdgesImage(_edgeData);
+
+        return edgesImage;
     }
 }
 
