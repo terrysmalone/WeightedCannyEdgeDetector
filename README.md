@@ -8,7 +8,7 @@ Note: The algroithm has been ripped from a project carried out in 2013. It's by 
 
 ## Usage
 
-[!Test image 1a](Test images/1a.bmp)
+![Test image 1a](Test images/1a.bmp)
 
 
 
