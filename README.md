@@ -6,6 +6,10 @@ The modification largely involves being able to wrap the edges horizontally sinc
 
 Note: The algroithm has been ripped from a project carried out in 2013. It's by no means well written or efficient. Time permitting, the plan is to make it both at some point.
 
+## Usage
+
+[!Test image 1a](Test images/1a.bmp)
+
 
 
  
