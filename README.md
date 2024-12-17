@@ -8,8 +8,8 @@ Note: The algorithm has been ripped from a project carried out in 2013. It's by 
 
 ## Usage
 
-![Test image 1a](./Test images/1a.bmp)
+![alt text](./Test images/1a.bmp "Test image 1a")
 
-
+![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a.bmp "Test image 1a")
 
  
