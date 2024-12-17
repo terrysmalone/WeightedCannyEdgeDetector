@@ -10,6 +10,8 @@ Note: The algorithm has been ripped from a project carried out in 2013. It's by 
 
 ![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a.bmp "Test image 1a")
 
+### No weighting 
+
 ```
  string filePath = "./TestImages/1a.bmp";
 
@@ -27,4 +29,17 @@ edgeBitmap.Save("1a-result1.png");
 ```
 
 ![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a-result1.png "1a-result1.png")
+
+### With weighting 
+
+As above, but add
+```
+canny.HorizontalWeight = 0.2f;
+```
+
+![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a-result2.png "1a-result2.png")
+
+Note that the spurious vertical edges from noise are less prominent.
+
+
 

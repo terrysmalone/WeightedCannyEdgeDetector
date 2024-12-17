@@ -65,6 +65,7 @@ public class CannyDetectorTests
         canny.KernelSigma = 5;
 
         canny.WrapVertically = true;
+        canny.HorizontalWeight = 0.2f;
 
         canny.DetectEdges();
 
