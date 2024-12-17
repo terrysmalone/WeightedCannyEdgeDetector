@@ -26,5 +26,5 @@ Bitmap edgeBitmap = canny.GetImage();
 edgeBitmap.Save("1a-result1.png");
 ```
 
-![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a-result1.bmp "1a-result1.png")
+![alt text](https://github.com/terrysmalone/WeightedCannyEdgeDetector/blob/main/Test%20images/1a-result1.png "1a-result1.png")
 
